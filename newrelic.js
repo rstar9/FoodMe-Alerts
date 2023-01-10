@@ -9,7 +9,7 @@ exports.config = {
   /**
    * Array of application names.
    */
-  app_name: ['my-service'],
+  app_name: ['FoodMe'],
   /**
    * Your New Relic license key.
    */
