@@ -59,11 +59,14 @@ exports.start = function(PORT, STATIC_DIR, DATA_FILE, TEST_DIR) {
     return res.status(400).send({ error: errors });
   });
 
-  app.post(API_URL_ORDER, jsonParser, function(req, res, next) {  
+app.post(API_URL_ORDER, jsonParser, function(req, res, next) {  
     logger.info(req.body, 'checkout');
     var order = req.body;
     var itemCount = 0;
     var orderTotal = 0;
+    if(Math.random() < 1){
+        throw new Error("Simulated error")
+    }
     order.items.forEach(function(item) {
         itemCount += item.qty;
         orderTotal += item.price * item.qty;
@@ -74,8 +77,10 @@ exports.start = function(PORT, STATIC_DIR, DATA_FILE, TEST_DIR) {
         'itemCount': itemCount,
         'orderTotal': orderTotal
     });
-    return res.status(201).send({ orderId: Date.now() });
-  });
+    setTimeout(() => {
+        return res.status(201).send({ orderId: Date.now() });
+    }, 5000);
+});
   
 
   app.get(API_URL_ID, function(req, res, next) {
@@ -144,5 +149,11 @@ exports.start = function(PORT, STATIC_DIR, DATA_FILE, TEST_DIR) {
     });
   }
   catch (e) {}
+  
+  app.use(function(err, req, res, next) {
+    if (err) {
+        return res.status(500).send({ error: 'Internal server error' });
+    }
+  });
 
 };
