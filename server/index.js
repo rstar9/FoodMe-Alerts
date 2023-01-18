@@ -4,6 +4,7 @@ const logger = require('pino')();
 var express = require('express');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
+var sleep = require('sleep');
 
 var fs = require('fs');
 var open = require('open');
@@ -52,6 +53,7 @@ exports.start = function(PORT, STATIC_DIR, DATA_FILE, TEST_DIR) {
     var errors = [];
 
     if (restaurant.validate(errors)) {
+      sleep()
       storage.add(restaurant);
       return res.send(201, restaurant);
     }
