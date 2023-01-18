@@ -25,6 +25,10 @@ foodMeApp.config(function($routeProvider) {
         controller: 'CustomerController',
         templateUrl: 'views/customer.html'
       }).
+      when('/error', {
+        controller: 'ErrorController',
+        templateUrl: 'views/error.html'
+      }).
       when('/who-we-are', {
         templateUrl: 'views/who-we-are.html'
       }).

@@ -152,7 +152,7 @@ app.post(API_URL_ORDER, jsonParser, function(req, res, next) {
   
   app.use(function(err, req, res, next) {
     if (err) {
-        return res.status(500).send({ error: 'Internal server error' });
+        return res.redirect('/error');
     }
   });
 
